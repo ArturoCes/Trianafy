@@ -10,15 +10,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @OpenAPIDefinition(info =
 @Info(description = "Una API de las playlist de Triana",
-		version = "1.0",
-		contact = @Contact(email = "arturo200212@gmail.com", name = "Arturo"),
-		title = "TRIANAFY"
-	)
+        version = "1.0",
+        contact = @Contact(email = "arturo200212@gmail.com", name = "Arturo"),
+        title = "TRIANAFY"
+)
 )
 public class TrianafyBaseApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(TrianafyBaseApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(TrianafyBaseApplication.class, args);
+    }
 
 }

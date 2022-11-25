@@ -19,21 +19,27 @@ public class PlaylistController {
 
     @GetMapping("/list/")
     public ResponseEntity<List<Playlist>> findAll() {
+
         return ResponseEntity.ok(repo.findAll());
     }
+
     @GetMapping("/list/{id}")
     public ResponseEntity<Playlist> findById(@PathVariable Long id) {
+
         return ResponseEntity.of(repo.findById(id));
     }
+
     @PostMapping("/list/")
     public ResponseEntity<Playlist> addNew(@RequestBody Playlist playList) {
+
         Playlist newArtist = repo.save(playList);
         return ResponseEntity.status(HttpStatus.CREATED).body(repo.save(newArtist));
     }
-    @PutMapping("/list/{id}")
-    public ResponseEntity<Playlist> edit(@RequestBody Playlist playlist, @PathVariable Long id){
 
-        return ResponseEntity.of(repo.findById(id).map(old->{
+    @PutMapping("/list/{id}")
+    public ResponseEntity<Playlist> edit(@RequestBody Playlist playlist, @PathVariable Long id) {
+
+        return ResponseEntity.of(repo.findById(id).map(old -> {
             old.setName(playlist.getName());
             old.setDescription(playlist.getDescription());
             old.setSongs(playlist.getSongs());
@@ -41,9 +47,11 @@ public class PlaylistController {
 
         }).orElse(Optional.empty()));
     }
+
     @DeleteMapping("/list/{id}")
-    public ResponseEntity<Artist>delete(@PathVariable Long id){
-        if(repo.existsById(id))
+    public ResponseEntity<Artist> delete(@PathVariable Long id) {
+
+        if (repo.existsById(id))
             repo.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
