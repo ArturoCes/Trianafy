@@ -19,7 +19,6 @@ public class Artist {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
 
 }

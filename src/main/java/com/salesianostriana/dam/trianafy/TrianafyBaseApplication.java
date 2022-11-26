@@ -11,7 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition(info =
 @Info(description = "Una API de las playlist de Triana",
         version = "1.0",
-        contact = @Contact(email = "arturo200212@gmail.com", name = "Arturo"),
+        contact = @Contact(email = "arturo200212@gmail.com", name = "Arturo Céspedes Pedrazas"),
         title = "TRIANAFY"
 )
 )
