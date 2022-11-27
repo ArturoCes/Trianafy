@@ -1,0 +1,453 @@
+{
+	"info": {
+		"_postman_id": "3a596bc6-ed55-43eb-b84f-1b78b4fe1951",
+		"name": "Trianafy-APIREST",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23714854"
+	},
+	"item": [
+		{
+			"name": "Playlist",
+			"item": [
+				{
+					"name": "1.-Obtener todas las Playlists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.-Obtener una Playlist por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.-Crea una Playlist",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"El origen\",\r\n    \"description\":\"El ultimo disco de Acru\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/list",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.-Editar la información de una Playlist",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Big Fan\",\r\n    \"description\":\"Soy Fan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/list/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.-Eliminar una Playlist por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6.-Obtener todas las canciones de una Playlist por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12/song",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12",
+								"song"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7.-Obtener una canción especifica por ID dentro de una Playlist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12/song/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12",
+								"song",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8.-Añadir una canción por ID a una Playlist especifica por ID",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12/song/4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12",
+								"song",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9.-Eliminar una canción de una Playlist por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/list/12/song/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"list",
+								"12",
+								"song",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Song",
+			"item": [
+				{
+					"name": "1.-Obtener canciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/song/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.-Obtener cancion por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/song/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.-Crear cancion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"grenade\",\r\n    \"artistId\":2,\r\n    \"album\":\"grenade\",\r\n    \"year\":\"2008\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/song/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.-Editar cancion",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"grenade\",\r\n    \"artistId\":2,\r\n    \"album\":\"grenade\",\r\n    \"year\":\"2008\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/song/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								"8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.-Eliminar cancion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/song/8",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"song",
+								"8"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Artist",
+			"item": [
+				{
+					"name": "1.-Obtener Artistas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artist/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2.-Obtener Artista por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artist/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3.-Crear Artista",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bruno Mars\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4.-Editar Artista",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Bruno Mars\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/artist/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5.-Eliminar Artista",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/artist/1",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"artist",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

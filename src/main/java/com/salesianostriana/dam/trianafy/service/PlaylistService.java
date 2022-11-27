@@ -41,5 +41,8 @@ public class PlaylistService {
         repository.deleteById(id);
     }
 
+    public List<Playlist> findPlaylistBySong(Song song){
+        return repository.findBySongsContains(song);
+    }
 
 }

@@ -112,7 +112,6 @@ public class TestModel {
 
         p1.addSong(s1a3);
         p1.addSong(s2a2);
-        p1.addSong(s1a3);
         p1.addSong(s3a3);
 
         playlistService.edit(p1);

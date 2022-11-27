@@ -53,11 +53,11 @@ public class ArtistController {
 
         if (listaArtistas.isEmpty()) {
             return ResponseEntity
-                    .notFound()
+                    .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
             return ResponseEntity
-                    .ok()
+                    .status(HttpStatus.OK)
                     .body(listaArtistas);
         }
     }
@@ -77,7 +77,7 @@ public class ArtistController {
 
         if (repo.findById(id).isEmpty()) {
             return ResponseEntity
-                    .notFound()
+                    .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
             return ResponseEntity
@@ -107,11 +107,11 @@ public class ArtistController {
                     description = "Este artista ya existe")
     })
     @PostMapping("/artist/")
-    public ResponseEntity<Artist> addNew(@RequestBody Artist artist) {
+    public ResponseEntity<Artist> addNewArtist(@RequestBody Artist artist) {
 
         if (artist.getName().isEmpty()) {
             return ResponseEntity
-                    .badRequest()
+                    .status(HttpStatus.BAD_REQUEST)
                     .build();
         } else {
             Artist newArtist = repo.save(artist);
@@ -163,7 +163,7 @@ public class ArtistController {
         Optional<Artist> artist = repo.findById(id);
         if (artist.isEmpty()) {
             return ResponseEntity
-                    .notFound()
+                    .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
             List<Song> songList = repoSong.findByArtist(artist.get());
@@ -172,6 +172,7 @@ public class ArtistController {
                 repoSong.save(s);
 
             }
+            repo.delete(artist.get());
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .build();

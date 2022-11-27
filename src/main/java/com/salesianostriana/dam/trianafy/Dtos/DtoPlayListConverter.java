@@ -14,7 +14,7 @@ public class DtoPlayListConverter {
                 .build();
     }
 
-    public DtoGetPlaylist getPlayListToPlatListDto(Playlist playlist{
+    public DtoGetPlaylist playListToGetPlayListDto(Playlist playlist){
         return DtoGetPlaylist
                 .builder()
                 .id(playlist.getId())

@@ -1,10 +1,12 @@
 package com.salesianostriana.dam.trianafy.controllers;
 
-import com.salesianostriana.dam.trianafy.Dtos.CreateSongDto;
+import com.salesianostriana.dam.trianafy.Dtos.DtoCreateSong;
 import com.salesianostriana.dam.trianafy.Dtos.DtoSongConverter;
 import com.salesianostriana.dam.trianafy.model.Artist;
+import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.service.ArtistService;
+import com.salesianostriana.dam.trianafy.service.PlaylistService;
 import com.salesianostriana.dam.trianafy.service.SongService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -30,12 +32,14 @@ public class SongController {
 
     private final ArtistService artSer;
 
+    private final PlaylistService plySer;
+
     @Operation(summary = "Obtiene una lista de todas las canciones")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se ha encontrado la lista de canciones",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CreateSongDto.class))}),
+                            schema = @Schema(implementation = DtoCreateSong.class))}),
             @ApiResponse(responseCode = "400",
                     description = "No se ha encontrado ninguna lista con canciones",
                     content = @Content),
@@ -86,7 +90,7 @@ public class SongController {
                     content = @Content),
     })
     @PostMapping("/song/")
-    public ResponseEntity<Song> addNew(@RequestBody CreateSongDto song) {
+    public ResponseEntity<Song> addNew(@RequestBody DtoCreateSong song) {
 
         Optional<Artist> art = artSer.findById(song.getArtistId());
         if (art.isEmpty()) {
@@ -94,7 +98,7 @@ public class SongController {
                     .status(HttpStatus.BAD_REQUEST)
                     .build();
         } else {
-            Song newSong = srDto.CreateSongDtoToSong(art.get(), song);
+            Song newSong = srDto.createSongDtoToSong(song,art.get());
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(serv.add(newSong));
@@ -107,7 +111,7 @@ public class SongController {
             @ApiResponse(responseCode = "200",
                     description = "Se ha editado correctamentet la canción",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = CreateSongDto.class))}),
+                            schema = @Schema(implementation = DtoCreateSong.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado la canción con el ID buscado",
                     content = @Content),
@@ -116,7 +120,7 @@ public class SongController {
                     content = @Content),
     })
     @PutMapping("/song/{id}")
-    public ResponseEntity<Song> editSong(@RequestBody CreateSongDto song, @PathVariable Long id) {
+    public ResponseEntity<Song> editSong(@RequestBody DtoCreateSong song, @PathVariable Long id) {
         Optional<Artist> art = artSer.findById(song.getArtistId());
 
         Optional<Song> sng = serv.findById(id);
@@ -135,7 +139,7 @@ public class SongController {
             sng.get().setTitle(song.getTitle());
             sng.get().setArtist(art.get());
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(sng.get());
+                    .body(serv.add(sng.get()));
         }
     }
 
@@ -151,14 +155,24 @@ public class SongController {
     })
     @DeleteMapping("/song/{id}")
     public ResponseEntity<Song> delete(@PathVariable Long id) {
-        if (serv.findById(id).isEmpty()) {
+        Optional<Song> song = serv.findById(id);
+        if (song.isEmpty()) {
             return ResponseEntity
-                    .notFound()
+                    .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
+
+            List<Playlist> playlist = plySer.findPlaylistBySong(song.get());
+            playlist.forEach(playlist1 -> {
+                if(playlist1.getSongs().contains(song.get())){
+                    playlist1.deleteSong(song.get());
+                    plySer.add(playlist1);
+                }
+            });
+
             serv.deleteById(id);
             return ResponseEntity
-                    .noContent()
+                    .status(HttpStatus.NO_CONTENT)
                     .build();
         }
     }

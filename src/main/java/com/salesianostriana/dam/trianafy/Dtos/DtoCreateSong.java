@@ -7,7 +7,7 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-public class CreateSongDto {
+public class DtoCreateSong {
 
     private String title;
     private Long artistId;
