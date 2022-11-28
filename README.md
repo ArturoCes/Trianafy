@@ -21,7 +21,7 @@ Para el desarrollo de la aplicación, se han utilizado los siguientes elementos:
 ### Para poder probar la API, tendremos dos vías principales:
 
 **Documentación del proyecto en Swagger:** Accederemos a la documentación hecha con **Swagger UI** a la cual accederemos mediante la siguiente ruta:
-[Documentación en Swagger](http://localhost:8080/swagger-trianafy-docs.html) Aquí, podremos probar todas las peticiones disponibles dentro de la API, y ver tanto los valores como el cuerpo de la misma.
+[Documentación en Swagger](http://localhost:8080/swagger-ui.html) Aquí, podremos probar todas las peticiones disponibles dentro de la API, y ver tanto los valores como el cuerpo de la misma.
 
 **Aplicación de Postman:** Dentro del proyecto, se encuentra el archivo Trianafy-APIREST.postman_collection.json. En este archivo se encuentran las peticiones de postman, deberemos importarlo a nuestro worskpace para poder usarlo, en el archivo se encuentran una serie de peticiones a todos los posibles métodos de la API. En las peticiones POST y PUT, cuando la seleccionemos, al pulsar en Body, podremos indicar el cuerpo que se envía en la petición para crear o modificar algún recurso.
 Organización del proyecto:
