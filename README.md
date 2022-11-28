@@ -32,6 +32,8 @@ Organización del proyecto:
 Es una colección de Postman, que podremos importar en dicho programa, y que nos permitirá acceder a los distintos endpoints de la API para probar todas sus funcionalidades.
 ### Toggl-Track(tiempo de desarrollo).jpg:
 Es un gráfico del tiempo dedicado a este proyecto.
+### Historias de usuario (tareas del proyecto)
+Son las tareas que se realizaron en el proyecto.
 # Rutas disponibles:
 ## Artista: 
 #### ({id} es el ID del artista)
