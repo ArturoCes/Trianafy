@@ -24,7 +24,6 @@ Para el desarrollo de la aplicación, se han utilizado los siguientes elementos:
 [Documentación en Swagger](http://localhost:8080/swagger-ui.html) Aquí, podremos probar todas las peticiones disponibles dentro de la API, y ver tanto los valores como el cuerpo de la misma.
 
 **Aplicación de Postman:** Dentro del proyecto, se encuentra el archivo Trianafy-APIREST.postman_collection.json. En este archivo se encuentran las peticiones de postman, deberemos importarlo a nuestro worskpace para poder usarlo, en el archivo se encuentran una serie de peticiones a todos los posibles métodos de la API. En las peticiones POST y PUT, cuando la seleccionemos, al pulsar en Body, podremos indicar el cuerpo que se envía en la petición para crear o modificar algún recurso.
-Organización del proyecto:
 
 ## Elementos a tener en cuenta:
 
