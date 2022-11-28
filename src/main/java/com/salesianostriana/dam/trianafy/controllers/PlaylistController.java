@@ -4,12 +4,15 @@ package com.salesianostriana.dam.trianafy.controllers;
 import com.salesianostriana.dam.trianafy.Dtos.DtoCreatePlayList;
 import com.salesianostriana.dam.trianafy.Dtos.DtoGetPlaylist;
 import com.salesianostriana.dam.trianafy.Dtos.DtoPlayListConverter;
+import com.salesianostriana.dam.trianafy.model.Artist;
 import com.salesianostriana.dam.trianafy.model.Playlist;
 import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.service.PlaylistService;
 import com.salesianostriana.dam.trianafy.service.SongService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -17,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,14 +34,26 @@ public class PlaylistController {
     private final SongService songService;
     private final DtoPlayListConverter dtoConverter;
 
-    @Operation(summary = "Obtiene todas las listas de reproducción existentes")
+    @Operation(summary = "Obtiene todas las listas de reproducción")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
-                    description = "Se ha encontrado una o varias playlists",
+            @ApiResponse(responseCode = "200 OK",
+                    description = "Se ha encontrado listas de reproducción",
                     content = {@Content(mediaType = "application/json",
-                            schema = @Schema(implementation = DtoGetPlaylist.class))}),
-            @ApiResponse(responseCode = "404",
-                    description = "No se ha encontrado ninguna playlist",
+                            array = @ArraySchema(schema = @Schema(implementation = Artist.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "id": 12,
+                                                    "name": "Random",
+                                                    "numberOfSongs": 2
+                                                }
+                                            ]                                         
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404 NOT FOUND",
+                    description = "No se ha encontrado ninguna lista de reproducción",
                     content = @Content),
     })
     @GetMapping("/list")

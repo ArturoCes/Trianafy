@@ -5,6 +5,8 @@ import com.salesianostriana.dam.trianafy.model.Song;
 import com.salesianostriana.dam.trianafy.repos.ArtistRepository;
 
 import com.salesianostriana.dam.trianafy.repos.SongRepository;
+import com.salesianostriana.dam.trianafy.service.ArtistService;
+import com.salesianostriana.dam.trianafy.service.SongService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -25,8 +27,9 @@ import java.util.Optional;
 @Controller
 @RequiredArgsConstructor
 public class ArtistController {
-    private final ArtistRepository repo;
-    private final SongRepository repoSong;
+
+    private final ArtistService artistService;
+    private final SongService songService;
 
     @Operation(summary = "Obtiene todos los artistas")
     @ApiResponses(value = {
@@ -49,7 +52,7 @@ public class ArtistController {
     })
     @GetMapping("/artist/")
     public ResponseEntity<List<Artist>> findAll() {
-        List<Artist> listaArtistas = repo.findAll();
+        List<Artist> listaArtistas = artistService.findAll();
 
         if (listaArtistas.isEmpty()) {
             return ResponseEntity
@@ -75,17 +78,17 @@ public class ArtistController {
     @GetMapping("/artist/{id}")
     public ResponseEntity<Artist> findById(@PathVariable Long id) {
 
-        if (repo.findById(id).isEmpty()) {
+        if (artistService.findById(id).isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
             return ResponseEntity
-                    .of(repo.findById(id));
+                    .of(artistService.findById(id));
         }
     }
 
-    @Operation(summary = "Crea un artista")
+    @Operation(summary = "Crea un artista nuevo")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201",
                     description = "Se ha creado un artista",
@@ -94,7 +97,7 @@ public class ArtistController {
                             examples = {@ExampleObject(
                                     value = """
                                             [
-                                                {"id": 13, "nombre": "Aitana"},
+                                                {"id": 13, "nombre": "Aitana"}
                                                                                  
                                             ]                                          
                                             """
@@ -103,8 +106,6 @@ public class ArtistController {
             @ApiResponse(responseCode = "400",
                     description = "Datos inválidos",
                     content = @Content),
-            @ApiResponse(responseCode = "409",
-                    description = "Este artista ya existe")
     })
     @PostMapping("/artist/")
     public ResponseEntity<Artist> addNewArtist(@RequestBody Artist artist) {
@@ -114,7 +115,7 @@ public class ArtistController {
                     .status(HttpStatus.BAD_REQUEST)
                     .build();
         } else {
-            Artist newArtist = repo.save(artist);
+            Artist newArtist = artistService.add(artist);
             return ResponseEntity
                     .status(HttpStatus.CREATED)
                     .body(newArtist);
@@ -133,15 +134,15 @@ public class ArtistController {
     })
     @PutMapping("/artist/{id}")
     public ResponseEntity<Artist> editArtist(@RequestBody Artist artist, @PathVariable Long id) {
-        if (repo.findById(id).isEmpty()) {
+        if (artistService.findById(id).isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
             return ResponseEntity.of(
-                    repo.findById(id).map(old -> {
+                    artistService.findById(id).map(old -> {
                         old.setName(artist.getName());
-                        repo.save(old);
+                        artistService.add(old);
                         return old;
                     })
             );
@@ -160,19 +161,19 @@ public class ArtistController {
     })
     @DeleteMapping("/artist/{id}")
     public ResponseEntity<Artist> delete(@PathVariable Long id) {
-        Optional<Artist> artist = repo.findById(id);
+        Optional<Artist> artist = artistService.findById(id);
         if (artist.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
-            List<Song> songList = repoSong.findByArtist(artist.get());
+            List<Song> songList = songService.findByArtist(artist.get());
             for (Song s : songList) {
                 s.setArtist(null);
-                repoSong.save(s);
+                songService.add(s);
 
             }
-            repo.delete(artist.get());
+            artistService.delete(artist.get());
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
                     .build();

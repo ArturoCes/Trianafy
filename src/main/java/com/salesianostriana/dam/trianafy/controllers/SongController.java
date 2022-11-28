@@ -93,6 +93,7 @@ public class SongController {
     public ResponseEntity<Song> addNew(@RequestBody DtoCreateSong song) {
 
         Optional<Artist> art = artSer.findById(song.getArtistId());
+
         if (art.isEmpty()) {
             return ResponseEntity
                     .status(HttpStatus.BAD_REQUEST)
@@ -153,7 +154,7 @@ public class SongController {
                     description = "No se encuentra ninguna canción relacionadda con ese Id",
                     content = @Content),
     })
-    @DeleteMapping("/song/{id}")
+    @DeleteMapping("/song/{id}" )
     public ResponseEntity<Song> delete(@PathVariable Long id) {
         Optional<Song> song = serv.findById(id);
         if (song.isEmpty()) {
