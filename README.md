@@ -26,7 +26,7 @@ Para el desarrollo de la aplicación, se han utilizado los siguientes elementos:
 **Aplicación de Postman:** Dentro del proyecto, se encuentra el archivo Trianafy-APIREST.postman_collection.json. En este archivo se encuentran las peticiones de postman, deberemos importarlo a nuestro worskpace para poder usarlo, en el archivo se encuentran una serie de peticiones a todos los posibles métodos de la API. En las peticiones POST y PUT, cuando la seleccionemos, al pulsar en Body, podremos indicar el cuerpo que se envía en la petición para crear o modificar algún recurso.
 Organización del proyecto:
 
-## En la carpeta principal nos encontramos diferentes elementos a tener en cuenta:
+## Elementos a tener en cuenta:
 
 ### Trianafy-APIREST.postman_collection.json:
 Es una colección de Postman, que podremos importar en dicho programa, y que nos permitirá acceder a los distintos endpoints de la API para probar todas sus funcionalidades.
