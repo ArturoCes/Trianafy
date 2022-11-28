@@ -134,7 +134,17 @@ public class PlaylistController {
                     content = @Content),
     })
     @PutMapping("/list/{id}")
-    public ResponseEntity<DtoGetPlaylist> editPlaylist(@RequestBody DtoCreatePlayList dtoCreatePlayList, @PathVariable Long id) {
+    public ResponseEntity<DtoGetPlaylist> editPlaylist(@io.swagger.v3.oas.annotations.parameters
+            .RequestBody(description = "Es el cuerpo de la petición ", content = @Content(examples = @ExampleObject("""
+                [
+                    {
+                        "id": 12,
+                        "name": "Big Fan",
+                        "numberOfSongs": 5
+                    }
+                ]
+            """))) @RequestBody DtoCreatePlayList dtoCreatePlayList, @PathVariable Long id) {
+
 
         Optional<Playlist> playlist1 = playlistService.findById(id);
 
@@ -153,14 +163,14 @@ public class PlaylistController {
         }
     }
 
-    @Operation(summary = "Borra una playlist")
+    @Operation(summary = "Elimina una Playlist por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
-                    description = "La playlist se ha borrado correctamente",
+                    description = "La Playlist se ha borrado correctamente",
                     content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Playlist.class))}),
             @ApiResponse(responseCode = "404",
-                    description = "No existe la playlist",
+                    description = "No se encuentra una Playlist relacionada con este ID",
                     content = @Content),
     })
     @DeleteMapping("/list/{id}")
@@ -221,11 +231,11 @@ public class PlaylistController {
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
-            List <Song>songList = playlistService.findById(id1).get()
+            List<Song> songList = playlistService.findById(id1).get()
                     .getSongs()
                     .stream()
-                    .filter(song1 -> (song1.getId()==song.get().getId())).collect(Collectors.toList());
-            if (songList.size()==0){
+                    .filter(song1 -> (song1.getId() == song.get().getId())).collect(Collectors.toList());
+            if (songList.size() == 0) {
                 return ResponseEntity
                         .status(HttpStatus.BAD_REQUEST)
                         .build();
@@ -235,11 +245,12 @@ public class PlaylistController {
                     .body(songList.get(0));
         }
     }
+
     @Operation(summary = "Añade una canción por ID a una playlist por ID")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Se ha añadido correctamente la canción a la playlist",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Playlist.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No se encuentra una playlist o una canción vinculada a ese ID",
@@ -255,19 +266,18 @@ public class PlaylistController {
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
-            if(!playlist.get().getSongs().contains(song.get())){
-                playlist.get().addSong(song.get());
-            }
+            playlist.get().addSong(song.get());
             return ResponseEntity
                     .status(HttpStatus.OK)
                     .body(playlistService.add(playlist.get()));
         }
     }
+
     @Operation(summary = "Borra una canción de la Playlist")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
                     description = "La canción se ha removido de manera satisfactoria",
-                    content = { @Content(mediaType = "application/json",
+                    content = {@Content(mediaType = "application/json",
                             schema = @Schema(implementation = Playlist.class))}),
             @ApiResponse(responseCode = "404",
                     description = "No existe la canción dentro de la Playlist especificada",
@@ -283,7 +293,9 @@ public class PlaylistController {
                     .status(HttpStatus.NOT_FOUND)
                     .build();
         } else {
-            playlist.get().deleteSong(song.get());
+            List<Song>songs = playlist.get().getSongs()
+                    .stream().filter(s -> s!=song.get()).collect(Collectors.toList());
+            playlist.get().setSongs(songs);
             playlistService.add(playlist.get());
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT)
