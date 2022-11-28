@@ -30,7 +30,7 @@ Organización del proyecto:
 
 ### Trianafy-APIREST.postman_collection.json:
 Es una colección de Postman, que podremos importar en dicho programa, y que nos permitirá acceder a los distintos endpoints de la API para probar todas sus funcionalidades.
-## Toggl-Track(tiempo de desarrollo).jpg:
+### Toggl-Track(tiempo de desarrollo).jpg:
 Es un gráfico del tiempo dedicado a este proyecto.
 # Rutas disponibles:
 ## Artista: 
